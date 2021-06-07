@@ -25,4 +25,8 @@ public class PessoaService {
         return pessoaRepository.save(pessoa);
     }
 
+    @Transactional
+    public void excluir(Long pessoaId){
+    pessoaRepository.deleteById(pessoaId);
+    }
 }
