@@ -10,10 +10,10 @@ CREATE TABLE entregas(
     destinatario_logradouro varchar(255) not null,
     destinatario_numero varchar(30) not null,
     destinatario_complemento varchar(60),
-    destinatario_bairro varchar (30) not null,
+    destinatario_bairro varchar(30) not null,
 
     PRIMARY KEY (id)
 );
 
 ALTER TABLE entregas ADD CONSTRAINT fk_entregas_pessoa
-FOREIGN KEY (pessoa_id) REFERENCES pessoa (id);
+FOREIGN KEY (pessoa_id) REFERENCES pessoa(id);

@@ -19,7 +19,6 @@ public class Entrega {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 
     @Embedded

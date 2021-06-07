@@ -29,4 +29,8 @@ public class PessoaService {
     public void excluir(Long pessoaId){
     pessoaRepository.deleteById(pessoaId);
     }
+
+    public Pessoa buscar(Long pessoaId){
+       return pessoaRepository.findById(pessoaId).orElseThrow(() -> new NegocioException("Pessoa não encontrada."));
+    }
 }
