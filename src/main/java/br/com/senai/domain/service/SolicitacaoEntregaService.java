@@ -7,9 +7,11 @@ import br.com.senai.domain.model.StatusEntrega;
 import br.com.senai.domain.repository.EntregaRepository;
 import br.com.senai.domain.repository.PessoaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -29,4 +31,11 @@ public class SolicitacaoEntregaService {
         return entregaRepository.save(entrega);
     }
 
+    public List<Entrega> listar(){
+        return entregaRepository.findAll();
+    }
+
+    public ResponseEntity<Entrega> buscar(Long entregaId){
+        return entregaRepository.findById(entregaId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 }
