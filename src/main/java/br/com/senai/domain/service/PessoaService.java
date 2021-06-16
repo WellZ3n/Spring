@@ -2,7 +2,6 @@ package br.com.senai.domain.service;
 
 
 import br.com.senai.api.assembler.PessoaAssembler;
-import br.com.senai.api.model.EntregaModel;
 import br.com.senai.api.model.PessoaModel;
 import br.com.senai.domain.exception.NegocioException;
 import br.com.senai.domain.model.Pessoa;
@@ -11,7 +10,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
@@ -33,8 +35,14 @@ public class PessoaService {
     }
 
     @Transactional
-    public void excluir(Long pessoaId){
-    pessoaRepository.deleteById(pessoaId);
+    public ResponseEntity<Object> excluir(Long pessoaId){
+
+        if(!pessoaRepository.existsById(pessoaId)){
+            return ResponseEntity.notFound().build();
+        }
+
+        pessoaRepository.deleteById(pessoaId);
+        return ResponseEntity.ok(pessoaId);
     }
 
     public List<PessoaModel> listar(){
@@ -49,5 +57,16 @@ public class PessoaService {
         return pessoaRepository.findById(pessoaId).map(entrega ->
             ResponseEntity.ok(pessoaAssembler.toModel(entrega))
         ).orElse(ResponseEntity.notFound().build());
+    }
+
+    public ResponseEntity<Pessoa> editar(@Valid @PathVariable Long pessoaId, @RequestBody Pessoa pessoa) {
+
+        if(!pessoaRepository.existsById(pessoaId)){
+            return ResponseEntity.notFound().build();
+        }
+        pessoa.setId(pessoaId);
+        pessoa = pessoaRepository.save(pessoa);
+
+        return ResponseEntity.ok(pessoa);
     }
 }
