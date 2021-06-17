@@ -69,4 +69,11 @@ public class PessoaService {
 
         return ResponseEntity.ok(pessoa);
     }
+
+    public List<PessoaModel> listarByName(String pessoaNome){
+        return pessoaAssembler.toCollectionModel(pessoaRepository.findByNome(pessoaNome));
+    }
+    public List<PessoaModel> listarByContaining(String nomeContaining){
+        return pessoaAssembler.toCollectionModel(pessoaRepository.findByNomeContaining(nomeContaining));
+    }
 }

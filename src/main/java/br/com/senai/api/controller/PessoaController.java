@@ -2,11 +2,8 @@ package br.com.senai.api.controller;
 
 
 import br.com.senai.api.assembler.PessoaAssembler;
-import br.com.senai.api.model.EntregaModel;
 import br.com.senai.api.model.PessoaModel;
-import br.com.senai.api.model.input.EntregaInput;
 import br.com.senai.api.model.input.PessoaInput;
-import br.com.senai.domain.model.Entrega;
 import br.com.senai.domain.model.Pessoa;
 import br.com.senai.domain.repository.PessoaRepository;
 import br.com.senai.domain.service.PessoaService;
@@ -31,15 +28,16 @@ public class PessoaController {
     public List<PessoaModel> listar(){
         return pessoaService.listar();
     }
-    //Em andamento
+    //Pronto
     @GetMapping("/nome/{pessoaNome}")
-    public List<Pessoa> listarPorNome(@PathVariable String pessoaNome){
-        return pessoaRepository.findByNome(pessoaNome);
+    public List<PessoaModel> listarPorNome(@PathVariable String pessoaNome){
+        return pessoaService.listarByName(pessoaNome);
     }
 
+    //Em andamento
     @GetMapping("/nome/containing/{nomeContaining}")
-    public List<Pessoa> listarNomeContaining(@PathVariable String nomeContaining) {
-        return pessoaRepository.findByNomeContaining(nomeContaining);
+    public List<PessoaModel> listarNomeContaining(@PathVariable String nomeContaining) {
+        return pessoaService.listarByContaining(nomeContaining);
     }
     //Pronto
     @GetMapping("/{pessoaId}")

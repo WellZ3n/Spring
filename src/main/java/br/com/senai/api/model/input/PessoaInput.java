@@ -24,5 +24,4 @@ public class PessoaInput {
     @NotBlank
     private  String telefone;
 
-
 }
