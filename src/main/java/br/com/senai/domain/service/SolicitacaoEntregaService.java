@@ -42,5 +42,6 @@ public class SolicitacaoEntregaService {
             ResponseEntity.ok(entregaAssembler.toModel(entrega))
         ).orElse(ResponseEntity.notFound().build());
     }
+
 }
 
