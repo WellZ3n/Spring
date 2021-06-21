@@ -11,9 +11,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class PessoaInput {
 
-    @NotNull
-    private long id;
-
     @NotBlank
     private String nome;
 
