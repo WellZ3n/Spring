@@ -5,11 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PessoaModel {
+public class UsuarioDTO {
 
-    private long id;
-    private String nome;
     private String email;
-    private String telefone;
+    private String senha;
 
 }

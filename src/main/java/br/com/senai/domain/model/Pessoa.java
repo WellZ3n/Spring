@@ -13,12 +13,9 @@ import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
 @FieldDefaults(level = PRIVATE)
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
-
 public class Pessoa {
 
     @NotNull(groups = ValidationGroups.ClienteId.class)
@@ -30,10 +27,9 @@ public class Pessoa {
     @Size(max = 60)
     String nome;
 
-    @NotBlank
-    @Email
-    @Size(min = 5)
-    String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
+    Usuario usuario;
 
     @NotBlank
     @Size(min = 14)
