@@ -1,8 +1,11 @@
 package br.com.senai.security;
 
+import br.com.senai.domain.model.AuthenticationResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -28,14 +31,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/entregas").hasRole("ADMIN")
+                .antMatchers("/authenticate").permitAll()
                 .antMatchers(HttpMethod.GET, AUTH_LIST).permitAll()
                 .antMatchers(HttpMethod.POST, AUTH_LIST).permitAll()
                 .antMatchers(HttpMethod.PUT, AUTH_LIST).permitAll()
                 .antMatchers(HttpMethod.DELETE, AUTH_LIST).permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().permitAll()
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception{
+        return super.authenticationManagerBean();
     }
 
     @Override
