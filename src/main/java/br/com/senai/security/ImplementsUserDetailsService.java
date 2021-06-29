@@ -21,10 +21,18 @@ public class ImplementsUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepository.findByEmail(email);
+
         if (usuario == null) {
             throw new NegocioException("Usuário ou senha inválidos.");
         }
 
-        return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
+        return new User(
+                usuario.getEmail(),
+                usuario.getSenha(),
+                true,
+                true,
+                true,
+                true,
+                usuario.getAuthorities());
     }
 }

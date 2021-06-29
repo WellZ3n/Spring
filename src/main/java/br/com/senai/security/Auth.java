@@ -1,6 +1,6 @@
 package br.com.senai.security;
 
 public class Auth {
-    final static String secret = "7fafafe8431312a69e237f69687db926";
-    final static int expiresIn = 120000;
+    final static String secret = "643a7579710d1f093f251c002a775301";
+    final static int expiresIn = 1200000000;
 }

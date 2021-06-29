@@ -11,7 +11,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @AllArgsConstructor
@@ -20,6 +22,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private ImplementsUserDetailsService implementsUserDetailsService;
+    private JWTRequestFilter jwtRequestFilter;
 
     private static final String[] AUTH_LIST = {
       "/",
@@ -30,15 +33,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/entregas").hasRole("ADMIN")
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers(HttpMethod.GET, AUTH_LIST).permitAll()
                 .antMatchers(HttpMethod.POST, AUTH_LIST).permitAll()
                 .antMatchers(HttpMethod.PUT, AUTH_LIST).permitAll()
                 .antMatchers(HttpMethod.DELETE, AUTH_LIST).permitAll()
+                .antMatchers(HttpMethod.GET, "/entregas").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/entregas").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .deleteCookies("token").invalidateHttpSession(true);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

@@ -19,6 +19,7 @@ import javax.validation.groups.Default;
 public class Pessoa {
 
     @NotNull(groups = ValidationGroups.ClienteId.class)
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
