@@ -7,10 +7,14 @@ import br.com.senai.domain.model.Pessoa;
 import br.com.senai.domain.model.StatusEntrega;
 import br.com.senai.domain.repository.EntregaRepository;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
