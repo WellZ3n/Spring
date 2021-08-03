@@ -12,5 +12,4 @@ public class DestinatarioDTO {
     private String numero;
     private String complemento;
     private String bairro;
-
 }

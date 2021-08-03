@@ -7,14 +7,10 @@ import br.com.senai.domain.model.Pessoa;
 import br.com.senai.domain.model.StatusEntrega;
 import br.com.senai.domain.repository.EntregaRepository;
 import lombok.AllArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,30 +18,30 @@ import java.util.List;
 @Service
 public class SolicitacaoEntregaService {
 
-    private PessoaService pessoaService;
-    private EntregaRepository entregaRepository;
-    private EntregaAssembler entregaAssembler;
+	private PessoaService pessoaService;
+	private EntregaRepository entregaRepository;
+	private EntregaAssembler entregaAssembler;
 
-    @Transactional
-    public Entrega solicitar(Entrega entrega){
-        Pessoa pessoa = pessoaService.buscar(entrega.getPessoa().getId());
-        entrega.setPessoa(pessoa);
+	@Transactional
+	public Entrega solicitar(Entrega entrega){
+		Pessoa pessoa = pessoaService.buscar(entrega.getPessoa().getId());
+		entrega.setPessoa(pessoa);
 
-        entrega.setStatus(StatusEntrega.PENDENTE);
-        entrega.setDataPedido(LocalDateTime.now());
+		entrega.setStatus(StatusEntrega.PENDENTE);
+		entrega.setDataPedido(LocalDateTime.now());
 
-        return entregaRepository.save(entrega);
-    }
+		return entregaRepository.save(entrega);
+	}
 
-    public List<EntregaDTO> listar(){
-        return entregaAssembler.toCollectionModel(entregaRepository.findAll());
-    }
+	public List<EntregaDTO> listar() {
+		return entregaAssembler.toCollectionModel(entregaRepository.findAll());
+	}
 
-    public ResponseEntity<EntregaDTO> buscar(Long entregaId){
-        return entregaRepository.findById(entregaId).map(entrega ->
-            ResponseEntity.ok(entregaAssembler.toModel(entrega))
-        ).orElse(ResponseEntity.notFound().build());
-    }
-
+	public ResponseEntity<EntregaDTO> buscar(Long entregaId) {
+		return entregaRepository.findById(entregaId)
+				.map(entrega -> {
+					return ResponseEntity.ok(entregaAssembler.toModel(entrega));
+				})
+				.orElse(ResponseEntity.notFound().build());
+	}
 }
-

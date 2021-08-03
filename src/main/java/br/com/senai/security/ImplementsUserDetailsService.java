@@ -22,17 +22,18 @@ public class ImplementsUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepository.findByEmail(email);
 
-        if (usuario == null) {
-            throw new NegocioException("Usuário ou senha inválidos.");
+        if(usuario == null){
+            throw new NegocioException("Usuário ou senha inválido.");
         }
 
         return new User(
-                usuario.getEmail(),
-                usuario.getSenha(),
+                usuario.getUsername(),
+                usuario.getPassword(),
                 true,
                 true,
                 true,
                 true,
-                usuario.getAuthorities());
+                usuario.getAuthorities()
+        );
     }
 }

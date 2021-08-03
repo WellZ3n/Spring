@@ -19,32 +19,32 @@ import java.util.List;
 @RequestMapping("/entregas")
 public class EntregaController {
 
-    private SolicitacaoEntregaService solicitacaoEntregaService;
-    private EntregaAssembler entregaAssembler;
-    private EntregaService entregaService;
+	private SolicitacaoEntregaService solicitacaoEntregaService;
+	private EntregaAssembler entregaAssembler;
+	private EntregaService entregaService;
 
-    @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public EntregaDTO solicitar(@Valid @RequestBody EntregaInputDTO entregaInputDTO){
-        Entrega novaEntrega = entregaAssembler.toEntity(entregaInputDTO);
-        Entrega entrega = solicitacaoEntregaService.solicitar(novaEntrega);
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public EntregaDTO solicitar(@Valid @RequestBody EntregaInputDTO entregaInputDTO){
+		Entrega novaEntrega = entregaAssembler.toEntity(entregaInputDTO);
+		Entrega entrega = solicitacaoEntregaService.solicitar(novaEntrega);
 
-        return entregaAssembler.toModel(entrega);
-    }
+		return entregaAssembler.toModel(entrega);
+	}
 
-    @GetMapping()
-    public List<EntregaDTO> listar(){
-        return solicitacaoEntregaService.listar();
-    }
+	@GetMapping
+	public List<EntregaDTO> listar(){
+		return solicitacaoEntregaService.listar();
+	}
 
-    @GetMapping("/{entregaId}")
-    public ResponseEntity<EntregaDTO> buscar(@PathVariable Long entregaId){
-        return solicitacaoEntregaService.buscar(entregaId);
-    }
+	@GetMapping("/{entregaId}")
+	public ResponseEntity<EntregaDTO> buscar(@PathVariable Long entregaId){
+		return solicitacaoEntregaService.buscar(entregaId);
+	}
 
-    @PutMapping("/{entregaId}/finalizacao")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void finalizar(@PathVariable Long entregaId){
-        entregaService.finalizar(entregaId);
-    }
+	@PutMapping("/{entregaId}/finalizacao")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalizar(@PathVariable Long entregaId){
+		entregaService.finalizar(entregaId);
+	}
 }

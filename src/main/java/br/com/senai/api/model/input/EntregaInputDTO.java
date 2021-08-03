@@ -1,6 +1,5 @@
 package br.com.senai.api.model.input;
 
-import br.com.senai.api.model.PessoaDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,7 @@ public class EntregaInputDTO {
 
     @Valid
     @NotNull
-    private PessoaDTO pessoa;
+    private PessoaIdInputDTO pessoa;
 
     @Valid
     @NotNull

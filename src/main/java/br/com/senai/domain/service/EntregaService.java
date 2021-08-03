@@ -8,8 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @AllArgsConstructor
+@Service
 public class EntregaService {
 
     private EntregaRepository entregaRepository;
@@ -25,7 +25,6 @@ public class EntregaService {
 
     public Entrega buscaEntrega(Long entregaId){
         return entregaRepository.findById(entregaId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Entrega não encontrada"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Entrega não encontrada."));
     }
-
 }

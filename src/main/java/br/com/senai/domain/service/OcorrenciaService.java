@@ -6,16 +6,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @AllArgsConstructor
+@Service
 public class OcorrenciaService {
 
     private EntregaService entregaService;
 
     @Transactional
-    public Ocorrencia registrar(Long entregaId, String descricao){
-
-        Entrega entrega = entregaService.buscaEntrega(entregaId);
+    public Ocorrencia registrar(Long entregaid, String descricao){
+        Entrega entrega = entregaService.buscaEntrega(entregaid);
 
         return entrega.adicionarOcorrencia(descricao);
     }

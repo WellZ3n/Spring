@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 @AllArgsConstructor
+@Component
 public class OcorrenciaAssembler {
 
     private ModelMapper modelMapper;
@@ -20,7 +20,9 @@ public class OcorrenciaAssembler {
     }
 
     public List<OcorrenciaDTO> toCollectionModel(List<Ocorrencia> ocorrencias){
-        return ocorrencias.stream().map(this::toModel).collect(Collectors.toList());
+        return ocorrencias.stream()
+                .map(this::toModel)
+                .collect(Collectors.toList());
     }
 
 }

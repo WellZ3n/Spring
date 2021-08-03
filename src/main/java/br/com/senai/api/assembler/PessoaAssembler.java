@@ -5,28 +5,28 @@ import br.com.senai.api.model.input.PessoaInputDTO;
 import br.com.senai.domain.model.Pessoa;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Configuration
+@Component
 public class PessoaAssembler {
 
-    private ModelMapper modelMapper;
+    ModelMapper modelMapper;
 
     public PessoaDTO toModel(Pessoa pessoa){
         return modelMapper.map(pessoa, PessoaDTO.class);
     }
 
-    public List<PessoaDTO> toCollectionModel(List<Pessoa> pessoas){
-        return pessoas.stream().map(this::toModel).collect(Collectors.toList());
-    }
-
     public Pessoa toEntity(PessoaInputDTO pessoaInputDTO){
         return modelMapper.map(pessoaInputDTO, Pessoa.class);
+    }
+
+    public List<PessoaDTO> toCollectionModel(List<Pessoa> pessoas){
+        return pessoas.stream().map(this::toModel)
+                .collect(Collectors.toList());
     }
 
 }

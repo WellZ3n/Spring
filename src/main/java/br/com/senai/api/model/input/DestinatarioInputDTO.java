@@ -23,5 +23,4 @@ public class DestinatarioInputDTO {
 
     @NotBlank
     private String bairro;
-
 }

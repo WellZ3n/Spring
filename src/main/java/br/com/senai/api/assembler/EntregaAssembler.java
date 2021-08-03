@@ -21,7 +21,9 @@ public class EntregaAssembler {
     }
 
     public List<EntregaDTO> toCollectionModel(List<Entrega> entregas){
-        return entregas.stream().map(this::toModel).collect(Collectors.toList());
+        return entregas.stream()
+                .map(this::toModel)
+                .collect(Collectors.toList());
     }
 
     public Entrega toEntity(EntregaInputDTO entregaInputDTO){
